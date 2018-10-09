@@ -28,6 +28,7 @@ with conn:
     print(addr)
     data = conn.recv(1024)
     if not data:
+        print('No data to process')
         sys.exit(1)
     client_sock.sendall(data)
     data = client_sock.recv(1024)
