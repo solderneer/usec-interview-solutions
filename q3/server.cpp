@@ -53,6 +53,9 @@ int main(int argc, char const *argv[])
 
     valread = read( new_socket , buffer, 1024);
     printf("%s\n",buffer );
+
+    // Executing the script
+    system("../q1.sh www.usec.io Ninja");
     send(new_socket , hello , strlen(hello), 0);
     printf("Hello message sent\n");
     return 0;

@@ -1,0 +1,14 @@
+[Unit]
+Description=Q3 server
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+type=simple
+Restart=always
+RestartSec=1
+User=solderneer
+ExecStart=./path/to/server
+
+[Install]
+WantedBy=multi-user.target
