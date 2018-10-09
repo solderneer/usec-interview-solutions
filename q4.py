@@ -10,7 +10,7 @@ CLIENT_HOST = '127.0.0.1'
 CLIENT_PORT = 2999
 
 server_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_sock = socket.socket(socket.AF_INET, socker.SOCK_STREAM)
+client_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 print('Sockets created')
 
 client_sock.connect((CLIENT_HOST, CLIENT_PORT))
@@ -20,17 +20,18 @@ server_sock.bind((SERVER_HOST, SERVER_PORT))
 print('Server socket bound')
 
 server_sock.listen(1) # Only allow one backlog connection before refusing
-print('Server is listening on port ' + SERVER_PORT)
+print('Server is listening on port ' + str(SERVER_PORT))
 
 conn, addr = server_sock.accept()
 
 with conn:
-    print('Connected to ' + addr)
-    while True:
-        data = conn.recv(1024)
-        if not data:
-            break
-        client_sock.sendall(data)
-        data = client_sock.recv(1024)
-        conn.sendall(data)
-        
+    print(addr)
+    data = conn.recv(1024)
+    if not data:
+        sys.exit(1)
+    client_sock.sendall(data)
+    data = client_sock.recv(1024)
+    conn.sendall(data)
+
+print('Exiting...')
+
