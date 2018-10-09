@@ -7,4 +7,5 @@ fi
 
 while IFS='' read -r line || [[ -n "$line" ]]; do
     echo "Text read from file: $line"
+    iptables -A INPUT -s $line -j DROP
 done < "$1"
