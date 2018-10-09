@@ -1,5 +1,6 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <sys/socket.h>
 #include <stdlib.h>
 #include <netinet/in.h>
@@ -7,13 +8,16 @@
 
 #define PORT 2999
 
+// Function prototypes
+void readfile(char *buffer);
+
 int main(int argc, char const *argv[])
 {
     int server_fd, new_socket, valread;
     struct sockaddr_in address;
     int opt = 1;
     int addrlen = sizeof(address);
-    char buffer[1024] = {0};
+    char *buffer;
     const char *hello = "Hello from server";
 
     // Creating socket file descriptor
@@ -55,8 +59,25 @@ int main(int argc, char const *argv[])
     printf("%s\n",buffer );
 
     // Executing the script
-    system("../q1.sh www.usec.io Ninja");
+    system("../q1.sh www.usec.io Ninja>q1.out");
+    readfile(buffer);
     send(new_socket , hello , strlen(hello), 0);
-    printf("Hello message sent\n");
+    printf("%s\n", buffer);
     return 0;
+}
+
+void readfile(char *buffer)
+{
+    size_t size = 0;
+    FILE *fp = fopen("q1.out", "r");
+
+    fseek(fp, 0, SEEK_END);
+    size = ftell(fp);
+
+    rewind(fp);
+
+    buffer = (char *)malloc((size + 1) * sizeof(*buffer));
+    fread(buffer, size, 1, fp);
+
+    buffer[size] = '\0';
 }
