@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <netinet/in.h>
 #include <string.h>
+
 #define PORT 2999
 
 int main(int argc, char const *argv[])
@@ -52,7 +53,7 @@ int main(int argc, char const *argv[])
 
     valread = read( new_socket , buffer, 1024);
     printf("%s\n",buffer );
-    send(new_socket , hello , strlen(hello) , 0 );
+    send(new_socket , hello , strlen(hello), 0);
     printf("Hello message sent\n");
     return 0;
-} 
+}
