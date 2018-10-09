@@ -6,7 +6,7 @@ if [ $# -ne 2 ]; then
   exit 1
 fi
 
-# TODO: implement checking for output directory already exists
+# TODO: implement checking for output directory if it already exists
 mkdir output
 cd output
 

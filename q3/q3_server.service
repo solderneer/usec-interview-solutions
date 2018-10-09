@@ -1,5 +1,5 @@
 [Unit]
-Description=Q3 server
+Description=q3server
 After=network.target
 StartLimitIntervalSec=0
 
