@@ -15,8 +15,8 @@ int main(int argc, char const *argv[])
     int opt = 1;
     int addrlen = sizeof(address);
 
-    char *buffer;
-    const char *hello = "Hello from server";
+    char in_buffer[1024] = {0};
+    char *out_buffer;
     size_t size = 0;
 
     // Creating socket file descriptor
@@ -54,12 +54,11 @@ int main(int argc, char const *argv[])
         exit(EXIT_FAILURE);
     }
 
-    valread = read( new_socket , buffer, 1024);
-    printf("%s\n",buffer );
+    valread = read(new_socket, in_buffer, 1024);
+    printf("%s\n", in_buffer);
 
     // Executing the script
     system("../q1.sh www.usec.io Ninja>q1.out");
-    readfile(buffer);
 
     FILE *fp = fopen("q1.out", "r");
     fseek(fp, 0, SEEK_END);
@@ -68,11 +67,10 @@ int main(int argc, char const *argv[])
 
     rewind(fp);
 
-    buffer = (char *)malloc((size + 1) * sizeof(*buffer));
-    fread(buffer, size, 1, fp);
-    buffer[size] = '\0';
-    printf("%s\n", buffer);
+    out_buffer = (char *)malloc((size + 1) * sizeof(*out_buffer));
+    fread(out_buffer, size, 1, fp);
+    out_buffer[size] = '\0';
 
-    send(new_socket , hello , strlen(hello), 0);
+    send(new_socket, out_buffer, strlen(out_buffer), 0);
     return 0;
 }

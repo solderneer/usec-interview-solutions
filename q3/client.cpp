@@ -13,7 +13,9 @@ int main(int argc, char const *argv[])
     struct sockaddr_in address;
     int sock = 0, valread;
     struct sockaddr_in serv_addr;
-    const char *hello = "Hello from client";
+    const char *hello = "pew";
+
+    // TODO: This only supports a fixed max length response, if script replies are too long, buffer will overflow
     char buffer[1024] = {0};
 
     if ((sock = socket(AF_INET, SOCK_STREAM, 0)) < 0)
@@ -40,9 +42,9 @@ int main(int argc, char const *argv[])
         return -1;
     }
 
-    send(sock , hello , strlen(hello), 0);
+    send(sock, hello, strlen(hello), 0);
     printf("Hello message sent\n");
-    valread = read( sock , buffer, 1024);
-    printf("%s\n",buffer );
+    valread = read(sock, buffer, 1024);
+    printf("%s\n", buffer);
     return 0;
 }
