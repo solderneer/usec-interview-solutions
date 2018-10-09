@@ -60,6 +60,7 @@ int main(int argc, char const *argv[])
     // Executing the script
     system("../q1.sh www.usec.io Ninja>q1.out");
 
+    // Retrieve output of the script and store inside buffer
     FILE *fp = fopen("q1.out", "r");
     fseek(fp, 0, SEEK_END);
     
@@ -71,6 +72,7 @@ int main(int argc, char const *argv[])
     fread(out_buffer, size, 1, fp);
     out_buffer[size] = '\0';
 
+    // Send the buffer containing the script response
     send(new_socket, out_buffer, strlen(out_buffer), 0);
     return 0;
 }
