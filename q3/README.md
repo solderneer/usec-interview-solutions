@@ -1,5 +1,6 @@
 # Documentation stuff
 Just some brief notes for configuration
+__G++ version 7.3.0__
 
 ## systemd config
 Before starting, move the q3_server.service file into /lib/systemd/system directory.
